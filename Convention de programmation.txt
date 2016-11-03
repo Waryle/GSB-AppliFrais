@@ -1,0 +1,1 @@
+Lors d'une modification ou d'un ajout de fonctionnalité, penser à rajouter un commentaire détaillant son utilité, et le nom de son auteur.
