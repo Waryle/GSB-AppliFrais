@@ -69,8 +69,8 @@ class PdoGsb{
  * @return l'id, nom et le prenom sous la forme d'un tableau associatif 
 */
 	public function getInfosComptable($login, $mdp){
-		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable
-		where comptable.login='$login' and comptable.mdp='$mdp'";
+		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom,comptable.mdp as mdp from comptable
+		where comptable.login='$login'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
