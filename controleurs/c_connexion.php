@@ -11,16 +11,24 @@ switch($action){
 	case 'valideConnexion':{
 		$login = $_REQUEST['login'];
 		$mdp = $_REQUEST['mdp'];
-		$visiteur = $pdo->getInfosVisiteur($login,$mdp);
-		if(!is_array( $visiteur)){
+		
+		//Test le type d'utilisateur et change la requête en fonction du type d'utilisateur
+		if($_POST['utilisateur'] == "visiteur") {
+			$utilisateur = $pdo->getInfosVisiteur($login,$mdp);
+		}
+		
+		elseif ($_POST['utilisateur'] == "comptable") {
+			$utilisateur = $pdo->getInfosComptable($login,$mdp);
+		}
+		if(!is_array( $utilisateur)){
 			ajouterErreur("Login ou mot de passe incorrect");
 			include("vues/v_erreurs.php");
 			include("vues/v_connexion.php");
 		}
 		else{
-			$id = $visiteur['id'];
-			$nom =  $visiteur['nom'];
-			$prenom = $visiteur['prenom'];
+			$id = $utilisateur['id'];
+			$nom =  $utilisateur['nom'];
+			$prenom = $utilisateur['prenom'];
 			connecter($id,$nom,$prenom);
 			include("vues/v_sommaire.php");
 		}
