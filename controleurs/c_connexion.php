@@ -1,42 +1,57 @@
 ﻿<?php
-if(!isset($_REQUEST['action'])){
-	$_REQUEST['action'] = 'demandeConnexion';
+if (! isset ( $_REQUEST ['action'] )) {
+	$_REQUEST ['action'] = 'demandeConnexion';
 }
-$action = $_REQUEST['action'];
-switch($action){
-	case 'demandeConnexion':{
-		include("vues/v_connexion.php");
-		break;
-	}
-	case 'valideConnexion':{
-		$login = $_REQUEST['login'];
-		$mdp = $_REQUEST['mdp'];
-		
-		//Test le type d'utilisateur et change la requête en fonction du type d'utilisateur
-		if($_POST['utilisateur'] == "visiteur") {
-			$utilisateur = $pdo->getInfosVisiteur($login,$mdp);
+$action = $_REQUEST ['action'];
+switch ($action) {
+	case 'demandeConnexion' :
+		{
+			include ("vues/v_connexion.php");
+			break;
 		}
-		
-		elseif ($_POST['utilisateur'] == "comptable") {
-			$utilisateur = $pdo->getInfosComptable($login,$mdp);
+	case 'valideConnexion' :
+		{
+			$login = $_REQUEST ['login'];
+			
+			
+			$mdp = $_REQUEST ['mdp'];
+			
+			// Test le type d'utilisateur et change la requête en fonction du type d'utilisateur
+			if ($_POST ['utilisateur'] == "visiteur") {
+				$utilisateur = $pdo->getInfosVisiteur ( $login, $mdp );
+			} 
+
+			elseif ($_POST ['utilisateur'] == "comptable") {
+				$utilisateur = $pdo->getInfosComptable ( $login, $mdp );
+			}
+			
+			if (! is_array ( $utilisateur )) {
+				ajouterErreur ( "Login incorrect" );
+				include ("vues/v_erreurs.php");
+				include ("vues/v_connexion.php");
+			} else {
+				
+				// test de cryptage du mot de passe
+				
+				if (!password_verify ( $mdp, $utilisateur ['mdp'] )) {
+					ajouterErreur ( " Mot de passe incorrect" );
+					include ("vues/v_erreurs.php");
+					include ("vues/v_connexion.php");
+				} else {
+					
+					$id = $utilisateur ['id'];
+					$nom = $utilisateur ['nom'];
+					$prenom = $utilisateur ['prenom'];
+					connecter ( $id, $nom, $prenom );
+					include ("vues/v_sommaire.php");
+				}
+			}
+			break;
 		}
-		if(!is_array( $utilisateur)){
-			ajouterErreur("Login ou mot de passe incorrect");
-			include("vues/v_erreurs.php");
-			include("vues/v_connexion.php");
+	default :
+		{
+			include ("vues/v_connexion.php");
+			break;
 		}
-		else{
-			$id = $utilisateur['id'];
-			$nom =  $utilisateur['nom'];
-			$prenom = $utilisateur['prenom'];
-			connecter($id,$nom,$prenom);
-			include("vues/v_sommaire.php");
-		}
-		break;
-	}
-	default :{
-		include("vues/v_connexion.php");
-		break;
-	}
 }
 ?>
