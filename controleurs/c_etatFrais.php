@@ -9,8 +9,11 @@ switch($action){
 		// on demande toutes les clés, et on prend la première,
 		// les mois étant triés décroissants
 		$lesCles = array_keys( $lesMois );
-		$moisASelectionner = $lesCles[0];
-		include("vues/v_listeMois.php");
+		// MAXIME : ERREUR Provoquait une erreur par défaut, penser à prévoir le comportement lors d'un array $lesCles vide
+		if(!empty($lesCles)) {
+			$moisASelectionner = $lesCles[0];
+			include("vues/v_listeMois.php");
+		}
 		break;
 	}
 	case 'voirEtatFrais':{

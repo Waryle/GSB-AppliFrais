@@ -60,6 +60,21 @@ class PdoGsb{
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
+	
+/**
+ * Retourne les informations d'un comptable
+ 
+ * @param $login 
+ * @param $mdp
+ * @return l'id, nom et le prenom sous la forme d'un tableau associatif 
+*/
+	public function getInfosComptable($login, $mdp){
+		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom,comptable.mdp as mdp from comptable
+		where comptable.login='$login'";
+		$rs = PdoGsb::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}
 
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
