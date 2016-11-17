@@ -12,16 +12,14 @@ switch ($action) {
 	case 'valideConnexion' :
 		{
 			$login = $_REQUEST ['login'];
-			
-			
 			$mdp = $_REQUEST ['mdp'];
 			
 			// Test le type d'utilisateur et change la requête en fonction du type d'utilisateur
-			if ($_POST ['utilisateur'] == "visiteur") {
+			if ($_POST ['typeUtilisateur'] == "visiteur") {
 				$utilisateur = $pdo->getInfosVisiteur ( $login, $mdp );
 			} 
 
-			elseif ($_POST ['utilisateur'] == "comptable") {
+			elseif ($_POST ['typeUtilisateur'] == "comptable") {
 				$utilisateur = $pdo->getInfosComptable ( $login, $mdp );
 			}
 			
@@ -48,6 +46,8 @@ switch ($action) {
 			}
 			break;
 		}
+	
+		
 	default :
 		{
 			include ("vues/v_connexion.php");
