@@ -41,7 +41,7 @@ switch ($action) {
 					$nom = $utilisateur ['nom'];
 					$prenom = $utilisateur ['prenom'];
 					$typeUtilisateur = $_POST['typeUtilisateur'] ;
-					connecter ( $id, $nom, $prenom );
+					connecter ( $id, $nom, $prenom, $typeUtilisateur );
 					include ("vues/v_sommaire.php");
 				}
 			}
