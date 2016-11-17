@@ -15,11 +15,11 @@ switch ($action) {
 			$mdp = $_REQUEST ['mdp'];
 			
 			// Test le type d'utilisateur et change la requête en fonction du type d'utilisateur
-			if ($_POST ['typeUtilisateur'] == "visiteur") {
+			if ($_POST ['typeUtilisateur'] == "Visiteur") {
 				$utilisateur = $pdo->getInfosVisiteur ( $login, $mdp );
 			} 
 
-			elseif ($_POST ['typeUtilisateur'] == "comptable") {
+			elseif ($_POST ['typeUtilisateur'] == "Comptable") {
 				$utilisateur = $pdo->getInfosComptable ( $login, $mdp );
 			}
 			

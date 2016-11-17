@@ -25,7 +25,7 @@
 			<label for="mdp">Mot de passe*</label> <input id="mdp"
 				type="password" name="mdp" size="30" maxlength="45">
 		</p>
-		<input id="typeUtilisateur" name="typeUtilisateur" type="hidden" value="visiteur"> <input
+		<input id="typeUtilisateur" name="typeUtilisateur" type="hidden" value="Visiteur"> <input
 			type="submit" value="Valider" name="valider"> <input type="reset"
 			value="Annuler" name="annuler">
 		</p>
@@ -52,7 +52,7 @@
 			<label for="mdp">Mot de passe*</label> <input id="mdp"
 				type="password" name="mdp" size="30" maxlength="45">
 		</p>
-		<input id="typeUtilisateur" name="typeUtilisateur" type="hidden" value="comptable" /> <input
+		<input id="typeUtilisateur" name="typeUtilisateur" type="hidden" value="Comptable" /> <input
 			type="submit" value="Valider" name="valider" /> <input type="reset"
 			value="Annuler" name="annuler">
 		</p>
