@@ -40,6 +40,7 @@ switch ($action) {
 					$id = $utilisateur ['id'];
 					$nom = $utilisateur ['nom'];
 					$prenom = $utilisateur ['prenom'];
+					$typeUtilisateur = $_POST['typeUtilisateur'] ;
 					connecter ( $id, $nom, $prenom );
 					include ("vues/v_sommaire.php");
 				}
