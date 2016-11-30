@@ -1,7 +1,22 @@
 ﻿ <div id="contenu">
       <h2>Mes fiches de frais</h2>
       <h3>Mois à sélectionner : </h3>
-      <form action="index.php?uc=etatFrais&action=voirEtatFrais" method="post">
+     <?php 
+     if($_SESSION['typeUtilisateur']=='Visiteur')
+     	{?>
+<form action="index.php?uc=etatFrais&action=voirEtatFrais" method="post">
+      <?php
+  }else
+      {?>
+      <form action="index.php?uc=valider&action=voirFraisVisiteur" method="post">
+      <input type="hidden" value=<?php echo $idvisiteur ?> name="idvisiteur"/>
+      <input type="hidden" value=<?php echo $idvisiteur ?> name="idvisiteur"/>
+      <input type="hidden" value=<?php echo $idvisiteur ?> name="idvisiteur"/>
+   
+      <?php 
+
+  }
+           ?>
       <div class="corpsForm">
          
       <p>
@@ -11,6 +26,7 @@
             <?php
 			foreach ($lesMois as $unMois)
 			{
+				if ($unMois['numAnnee'] > $anneePass-2) {
 			    $mois = $unMois['mois'];
 				$numAnnee =  $unMois['numAnnee'];
 				$numMois =  $unMois['numMois'];
@@ -23,12 +39,14 @@
 				<option value="<?php echo $mois ?>"><?php echo  $numMois."/".$numAnnee ?> </option>
 				<?php 
 				}
+				}
 			
 			}
            
 		   ?>    
             
         </select>
+
       </p>
       </div>
       <div class="piedForm">

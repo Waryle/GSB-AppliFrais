@@ -9,7 +9,7 @@
 	}
 	if ($utilisateur == "visiteur") {
 		?>
-		<h2>Identification utilisateur</h2>
+		<h2>Identification visiteur</h2>
 
 
 	<form method="POST"
@@ -37,7 +37,7 @@
 	<?php
 	} elseif ($utilisateur == "comptable") {
 		?>
-		<h2>Identification utilisateur</h2>
+		<h2>Identification comptable</h2>
 	<form method="POST"
 		action="index.php?uc=connexion&action=valideConnexion&utilisateur=comptable"
 		id="FormConnexion">

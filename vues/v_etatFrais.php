@@ -10,6 +10,8 @@
   	<table class="listeLegere">
   	   <caption>Eléments forfaitisés </caption>
         <tr>
+         
+         <th>Totaux</th>
          <?php
          foreach ( $lesFraisForfait as $unFraisForfait ) 
 		 {
@@ -21,6 +23,7 @@
 		?>
 		</tr>
         <tr>
+        <td></td>
         <?php
           foreach (  $lesFraisForfait as $unFraisForfait  ) 
 		  {
@@ -31,6 +34,20 @@
           }
 		?>
 		</tr>
+    <tr>
+    <td>Totaux</td>
+     <?php
+     $montanttotalfrais =0 ;
+    foreach (  $lesFraisForfait as $unFraisForfait  ) 
+     {
+        $montantfrais = $unFraisForfait['quantite']*$unFraisForfait['montant'];
+       $montanttotalfrais=$montanttotalfrais+ $montantfrais;
+    ?>
+                <td ><?php echo $montantfrais."€"?> </td>
+     <?php
+          }
+    ?>
+    </tr>
     </table>
   	<table class="listeLegere">
   	   <caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -
@@ -38,14 +55,21 @@
              <tr>
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
-                <th class='montant'>Montant</th>                
+                <th class='montant'>Montant</th>    
+
              </tr>
-        <?php      
+        <?php     
+        $montanttotalfraisHF =0; 
           foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
 		  {
 			$date = $unFraisHorsForfait['date'];
 			$libelle = $unFraisHorsForfait['libelle'];
 			$montant = $unFraisHorsForfait['montant'];
+       $chaine = stripos($libelle, "REFUSE");
+      if($chaine === false){
+          $montanttotalfraisHF =  $montanttotalfraisHF + $unFraisHorsForfait['montant'];
+      }
+     
 		?>
              <tr>
                 <td><?php echo $date ?></td>
@@ -54,8 +78,15 @@
              </tr>
         <?php 
           }
+
 		?>
+    <tr>
+      <td>Total</td>
+       <td></td>
+        <td><?php echo $montanttotalfraisHF."€" ?></td>
+    </tr>
     </table>
+    <p>Total de tous les frais confondus : <?php echo $montanttotalfraisHF+$montanttotalfrais."€" ?></p>
   </div>
   </div>
  

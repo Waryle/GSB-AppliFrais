@@ -152,31 +152,24 @@ function lesQteFraisValides($lesFrais){
  * @param $montant
  */
  
- function valideInfosFrais($dateFrais,$libelle,$montant){
-	if($dateFrais==""){
-		ajouterErreur("Le champ date ne doit pas être vide");
-	}
-	else{
-		if(!estDatevalide($dateFrais)){
-			ajouterErreur("Date invalide");
-		}	
-		else{
-			if(estDateDepassee($dateFrais)){
-				ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an");
-			}			
-		}
-	}
-	if($libelle == ""){
-		ajouterErreur("Le champ description ne peut pas être vide");
-	}
-	if($montant == ""){
-		ajouterErreur("Le champ montant ne peut pas être vide");
-	}
-	else
-		if( !is_numeric($montant) ){
-			ajouterErreur("Le champ montant doit être numérique");
-		}
-}
+ function valideInfosFrais($dateFrais,$libelle,$montant){ 
+ if($dateFrais==""){ 
+ ajouterErreur("Le champ date ne doit pas être vide"); 	}
+ elseif(!estDatevalide($dateFrais)){ 			
+ ajouterErreur("Date invalide"); 
+ }elseif(estDateDepassee($dateFrais)){ 
+ ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an"); 	
+ }			 		 
+ elseif(estTropGrand($dateFrais)){ 		
+ ajouterErreur("date d'enregistrement du frais pas entammée"); 		} 	
+ if($libelle == ""){ 		
+ ajouterErreur("Le champ description ne peut pas être vide"); 	} 
+ if($montant == ""){ 
+ ajouterErreur("Le champ montant ne peut pas être vide"); 	} 	
+ elseif( !is_numeric($montant) ){ 	
+ ajouterErreur("Le champ montant doit être numérique"); 		
+ }
+ }
 /**
  * Ajoute le libellé d'une erreur au tableau des erreurs 
  
@@ -201,4 +194,20 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
+
+/** Jairus:  
+fonction estTropGrand($moisTestee) fonction qui vérifie si le mois saisi est supérieur au mois en cours et  
+retourne vrai si le mois saisi dépasse celui en cours @param $moisTestee  @return vrai ou faux */ 
+function estTropGrand($date){ 	 
+	$dateActuelle=date("d/m/Y"); 
+	@list($jour,$mois,$annee) = explode('/',$dateActuelle); 	
+@list($j,$m,$an) = explode('/',$date); 		
+  	$aujourdhui = $annee.$mois; 	
+	return ($an.$m>$aujourdhui);  	 
+	}
 ?>
+<script type="text/javascript">
+function info() {
+  alert("Mise à jour prise en compte");
+}
+</script>
