@@ -2,6 +2,7 @@
 
 
 <?php
+$montanttotalfraisHF = 0;
 if (!empty($lesFraisHorsForfait)) {
 ?>
 
@@ -40,7 +41,7 @@ Etat : <?php
              </tr>
           
     <?php
-    $montanttotalfraisHF = 0;
+   
     
     foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
         $libelle = $unFraisHorsForfait['libelle'];
@@ -65,32 +66,15 @@ Etat : <?php
         if ($_SESSION['typeUtilisateur'] == 'Comptable' and $chaine === false) {
             $montanttotalfraisHF = $montanttotalfraisHF + $montant;
 ?>
-<td><a href="index.php?uc=valider&action=supprimerFrais&idFrais=<?php
-            echo $id;
-?>&lstvisiteur=<?php
-            echo $idvisiteur;
-?>&mois=<?php
-            echo $mois;
-?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
+<td><a href="index.php?uc=valider&action=supprimerFrais&idFrais=<?phpecho $id;?>&lstvisiteur=<?php echo $idvisiteur;?>&mois=<?php echo $mois;?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
 
-<td><a href="index.php?uc=valider&action=repporterfrais&idFrais=<?php
-            echo $id;
-?>&lstvisiteur=<?php
-            echo $idvisiteur;
-?>&mois=<?php
-            echo $mois;
-?>" 
-        onclick="return confirm('Voulez-vous vraiment repporter ce frais?');">Repporter ce frais</a></td>
+<td><a href="index.php?uc=valider&action=repporterfrais&idFrais=<?php echo $id;?>&lstvisiteur=<?php echo $idvisiteur;?>&mois=<?php echo $mois?>"onclick="return confirm('Voulez-vous vraiment repporter ce frais?');">Repporter ce frais</a></td>
        <?php
         } elseif ($_SESSION['typeUtilisateur'] == 'Visiteur') {
             $montanttotalfraisHF = $montanttotalfraisHF + $montant;
 ?>
 
-<td><a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php
-            echo $id;
-?>" 
-        onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
-<?php
+<td><a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php echo $id;?>"onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td><?php
         } else {
 ?>
 <td></td>
@@ -115,14 +99,10 @@ Etat : <?php
   
    <?php
 
-   $montanttotal = $montanttotalfraisHF + $_SESSION['montantTotalFraisForfait'] ;
+
    
-   echo "Montant total : ". $montanttotal ;
-  if($_SESSION['typeUtilisateur'] == 'Comptable' ) {
-  ?> <h3><a href="index.php?uc=valider&action=validerfiche&idvisiteur=<?php echo $idvisiteur?>&mois=<?php echo $mois?>&montant=<?php echo $montanttotal ?>" onclick="return confirm('Voulez-vous vraiment valider cette fiche?');">Valider fiche</a></h3>
-   <?php }
-   $_SESSION['montantTotalFraisForfait'] = null ;
-   unset($_SESSION['montantTotalFraisForfait']) ;
+   
+  
 } else {
 ?>
    <p>
@@ -130,6 +110,15 @@ Etat : <?php
     </p>
 <?php
 }
+$montanttotal = $montanttotalfraisHF + $_SESSION['montantTotalFraisForfait'] ;
+echo "Montant total : ". $montanttotal ;
+if($_SESSION['typeUtilisateur'] == 'Comptable' ) {
+	?> <h3><a href="index.php?uc=valider&action=validerfiche&idvisiteur=<?php echo $idvisiteur?>&mois=<?php echo $mois?>&montant=<?php echo $montanttotal ?>" onclick="return confirm('Voulez-vous vraiment valider cette fiche?');">Valider fiche</a></h3>
+   
+   <?php
+
+   $_SESSION['montantTotalFraisForfait'] = null ;
+   unset($_SESSION['montantTotalFraisForfait']) ; }
 ?>
    <?php
 if ($_SESSION['typeUtilisateur'] == 'Visiteur') {

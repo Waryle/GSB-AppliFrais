@@ -494,7 +494,7 @@ class PdoGsb
     {
         $req = PdoGsb::$monPdo->prepare("select fichefrais.idEtat
         from fichefrais
-        where fichefrais.idVisiteur= :visiteur and fichefrais.mois = 'mois'");
+        where fichefrais.idVisiteur= :visiteur and fichefrais.mois = :mois");
         $req->execute(array(
             'visiteur' => $visiteur,
             'mois' => $mois
@@ -554,7 +554,7 @@ class PdoGsb
         $req->execute(array(
             'etat' => $etat
         ));
-        $lesLignes = $res->fetchAll();
+        $lesLignes = $req->fetchAll();
         return $lesLignes;
     }
     

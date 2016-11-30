@@ -7,6 +7,9 @@
               
                      
     </p>
+   <?php
+   $montanttotalfrais =0 ;
+   if(!empty($lesFraisForfait)){?>
   	<table class="listeLegere">
   	   <caption>Eléments forfaitisés </caption>
         <tr>
@@ -37,7 +40,7 @@
     <tr>
     <td>Totaux</td>
      <?php
-     $montanttotalfrais =0 ;
+  
     foreach (  $lesFraisForfait as $unFraisForfait  ) 
      {
         $montantfrais = $unFraisForfait['quantite']*$unFraisForfait['montant'];
@@ -49,6 +52,9 @@
     ?>
     </tr>
     </table>
+    <?php }else{?>
+    <p>Il n'y a aucun frais forfétarisés pour cette fiche</p>
+  <?php   }?>
   	<table class="listeLegere">
   	   <caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -
        </caption>

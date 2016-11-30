@@ -104,9 +104,9 @@ function estDateDepassee($dateTestee){
 	$dateActuelle=date("d/m/Y");
 	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
 	$annee--;
-	$AnPasse = $annee.$mois.$jour;
+	$AnPasse = $annee.$mois;
 	@list($jourTeste,$moisTeste,$anneeTeste) = explode('/',$dateTestee);
-	return ($anneeTeste.$moisTeste.$jourTeste < $AnPasse); 
+	return ($anneeTeste.$moisTeste < $AnPasse); 
 }
 /**
  * Vérifie la validité du format d'une date française jj/mm/aaaa 
