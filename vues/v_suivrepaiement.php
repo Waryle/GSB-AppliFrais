@@ -22,7 +22,7 @@ foreach ($lesfiches as $uneFiche)
 <td><?php echo $uneFiche['prenom']?></td>
 <td><?php echo $uneFiche['mois']?></td>
 <td><?php echo $uneFiche['montantValide']?></td>
-<td><a href="index.php?uc=paiement&action=rembourser&mois=<?php echo $uneFiche['mois'] ?>&idvisiteur=<?php echo $uneFiche['idVisiteur']?>" 
+<td><a href="index.php?uc=paiement&action=rembourser&mois=<?php echo $uneFiche['mois'] ?>&idvisiteur=<?php echo $uneFiche['idVisiteur']?>&montant=<?php echo $uneFiche['montantValide']?>" 
         onclick="return confirm('Voulez-vous vraiment confirmer le remboursement?');">A été remboursé</a></td>
 		</tr>
 

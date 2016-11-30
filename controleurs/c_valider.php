@@ -3,7 +3,7 @@ $action = $_REQUEST['action'];
 
 switch($action){
 	case 'selectionneVisiteur':{
-		$lesVisiteurs=$pdo->GetlesFicheEtat("CL");
+		$lesVisiteurs=$pdo->GetlesVisiteurFicheCloture();
 include("vues/v_listVisiteur.php");
 	break;
 }
@@ -51,7 +51,8 @@ case 'validerfiche' :{
 
 	$idvisiteur= $_REQUEST['idvisiteur'];
 	$mois= $_REQUEST['mois'];
-	$pdo->majEtatFicheFrais($idvisiteur,$mois,"VA");
+	$montant= $_REQUEST['montant'];
+	$pdo->majEtatFicheFrais($idvisiteur,$mois,"VA", $montant);
 }
 	break;
 

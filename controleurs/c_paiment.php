@@ -12,8 +12,9 @@ include("vues/v_mettreEnPaiement.php");
 	case 'MiseEnPaiement':{
 $idvisiteur = $_REQUEST['idvisiteur'];
 $mois = $_REQUEST['mois'];
+$montant = $_REQUEST['montant'] ;
 
-$pdo->majEtatFicheFrais($idvisiteur,$mois,'MP');
+$pdo->majEtatFicheFrais($idvisiteur,$mois,'MP', $montant);
 
 header("Location:index.php?uc=paiement&action=voirFicheaRembrouser");
 	break; 
@@ -30,8 +31,8 @@ break;
 case 'rembourser':{
 	$idvisiteur = $_REQUEST['idvisiteur'];
 $mois = $_REQUEST['mois'];
-
-$pdo->majEtatFicheFrais($idvisiteur,$mois,'RB');
+$montant = $_REQUEST['montant'] ;
+$pdo->majEtatFicheFrais($idvisiteur,$mois,'RB', $montant);
 	header("Location:index.php?uc=paiement&action=suivrePaiement");
 break; 
 }

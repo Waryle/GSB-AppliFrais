@@ -326,8 +326,8 @@ class PdoGsb{
  * @param $mois sous la forme aaaamm
  */
  
-	public function majEtatFicheFrais($idVisiteur,$mois,$etat){
-		$req = "update ficheFrais set idEtat = '$etat', dateModif = now() 
+	public function majEtatFicheFrais($idVisiteur,$mois,$etat, $montant){
+		$req = "update ficheFrais set idEtat = '$etat', dateModif = now(), montantValide = '$montant'
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 
@@ -443,7 +443,7 @@ $req = "select fichefrais.idEtat
  * Retourne tout les visiteurs ayant des fiche de frais cloturée 
  * */
 
-		/**public function GetlesVisiteurFicheCloture(){
+		public function GetlesVisiteurFicheCloture(){
 			$req = "select DISTINCT ficheFrais.idVisiteur as idVisiteur,  visiteur.nom as nom, visiteur.prenom as prenom
 			 from  fichefrais 
 			 inner join visiteur
@@ -452,7 +452,7 @@ $req = "select fichefrais.idEtat
 		$res = PdoGsb::$monPdo->query($req);
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
-	} * */
+	} 
 
 public function GetlesFicheEtat($etat){
 			$req = "select DISTINCT ficheFrais.idVisiteur as idVisiteur,  visiteur.nom as nom, visiteur.prenom as prenom, fichefrais.montantValide as montantValide, ficheFrais.mois as mois

@@ -10,7 +10,6 @@
          <form method="POST"  action="index.php?uc=valider&action=validerMajFraisForfait&lstvisiteur=<?php echo $idvisiteur?>&mois=<?php echo $mois?>">
          <h2><?php echo $visiteur_prenom.' '.$visiteur_nom ?>,fiche de frais du mois <?php echo $numMois."-".$numAnnee ?></h2>
         	<h3><a href="index.php?uc=valider&action=selectionnerMois&lstvisiteur=<?php echo $idvisiteur?>" onclick="return confirm('Voulez-vous vraiment revenir en arrière ?');">Retour</a></h3>
-           	<h3><a href="index.php?uc=valider&action=validerfiche&idvisiteur=<?php echo $idvisiteur?>&mois=<?php echo $mois?>" onclick="return confirm('Voulez-vous vraiment valider cette fiche?');">Valider fiche</a></h3>
         	 <!--<form method="POST"  action="index.php?uc=valider&action=validerMajFraisForfait">-->
         	<?php }?>
      
@@ -39,6 +38,7 @@
 			<?php
 				}
 			
+				$_SESSION['montantTotalFraisForfait'] = $montanttotalfraisF ;
 			?>
 			
 			
