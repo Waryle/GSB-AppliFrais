@@ -114,12 +114,13 @@ Etat : <?php
     
   
    <?php
-   
+
    $montanttotal = $montanttotalfraisHF + $_SESSION['montantTotalFraisForfait'] ;
    
    echo "Montant total : ". $montanttotal ;
+  if($_SESSION['typeUtilisateur'] == 'Comptable' ) {
   ?> <h3><a href="index.php?uc=valider&action=validerfiche&idvisiteur=<?php echo $idvisiteur?>&mois=<?php echo $mois?>&montant=<?php echo $montanttotal ?>" onclick="return confirm('Voulez-vous vraiment valider cette fiche?');">Valider fiche</a></h3>
-   <?php 
+   <?php }
    $_SESSION['montantTotalFraisForfait'] = null ;
    unset($_SESSION['montantTotalFraisForfait']) ;
 } else {

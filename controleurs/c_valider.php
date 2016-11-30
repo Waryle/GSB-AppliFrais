@@ -18,7 +18,7 @@ include("vues/v_listeMois.php");
 case 'voirFraisVisiteur' :{
 	$mois = $_REQUEST['lstMois'];
 
-$idvisiteur = $_REQUEST['idvisiteur'];
+	$idvisiteur = $_REQUEST['idvisiteur'];
 	$visiteur = $pdo->getVisiteur($idvisiteur);
 	$visiteur_prenom = $visiteur['prenom'];
 	$visiteur_nom  = $visiteur['nom'];
