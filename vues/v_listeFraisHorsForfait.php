@@ -1,155 +1,149 @@
-﻿<table class="listeLegere">
+﻿
 
-
-<?php
-$montanttotalfraisHF = 0;
-
-if (! empty ( $lesFraisHorsForfait )) {
-	?>
-<?php
-	if ($_SESSION ['typeUtilisateur'] == 'Comptable') {
-		?>
-<p>
-Etat : <?php
-		echo $libEtat;
-		?> depuis le <?php
-		echo $dateModif;
-		?> <br />
-<?php
-		echo $nbJustificatifs;
-		?> justificatifs reçus 
-</p>
-<?php
-	}
-	?>
-<caption>Descriptif des éléments hors forfait</caption>
+<table class="listeLegere">
+   <?php
+			$montanttotalfraisHF = 0;
+			
+			if (! empty ( $lesFraisHorsForfait )) {
+				?>
+   <?php
+				if ($_SESSION ['typeUtilisateur'] == 'Comptable') {
+					?>
+   <p>
+      Etat : <?php
+					echo $libEtat;
+					?> depuis le <?php
+					echo $dateModif;
+					?> <br />
+      <?php
+					echo $nbJustificatifs;
+					?> justificatifs reçus 
+   </p>
+   <?php
+				}
+				?>
+   <caption>Descriptif des éléments hors forfait</caption>
 	<tr>
 		<th class="date">Date</th>
 		<th class="libelle">Libellé</th>
 		<th class="montant">Montant</th>
 		<th class="action">Supprimer</th>
-              <?php
-	if ($_SESSION ['typeUtilisateur'] == 'Comptable') {
-		?> 
-               <th class="action">Reporter</th>     <?php
-	}
-	
-	?>        
-             </tr>
-          
-    <?php
-	foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) {
-		$libelle = $unFraisHorsForfait ['libelle'];
-		$date = $unFraisHorsForfait ['date'];
-		$montant = $unFraisHorsForfait ['montant'];
-		$id = $unFraisHorsForfait ['id'];
-		?>        
-            <tr>
-		<td> <?php
-		echo $date;
-		?></td>
-		<td><?php
-		echo $libelle;
-		?></td>
-		<td><?php
-		echo $montant;
-		?></td>
-                
       <?php
-		$chaine = stripos ( $libelle, "REFUSE" );
-		if ($_SESSION ['typeUtilisateur'] == 'Comptable' and $chaine === false) {
-			$montanttotalfraisHF = $montanttotalfraisHF + $montant;
-			?>
-<td><a
+				if ($_SESSION ['typeUtilisateur'] == 'Comptable') {
+					?> 
+      <th class="action">Reporter</th>
+      <?php
+				}
+				
+				?>        
+   </tr>
+   <?php
+				foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) {
+					$libelle = $unFraisHorsForfait ['libelle'];
+					$date = $unFraisHorsForfait ['date'];
+					$montant = $unFraisHorsForfait ['montant'];
+					$id = $unFraisHorsForfait ['id'];
+					?>        
+   <tr>
+		<td> <?php
+					echo $date;
+					?></td>
+		<td><?php
+					echo $libelle;
+					?></td>
+		<td><?php
+					echo $montant;
+					?></td>
+      <?php
+					$chaine = stripos ( $libelle, "REFUSE" );
+					if ($_SESSION ['typeUtilisateur'] == 'Comptable' and $chaine === false) {
+						$montanttotalfraisHF = $montanttotalfraisHF + $montant;
+						?>
+      <td><a
 			href="index.php?uc=valider&action=supprimerFrais&idFrais=<?php
-			echo $id;
-			?>&lstvisiteur=<?php
-			echo $idvisiteur;
-			?>&mois=<?php
-			echo $mois;
-			?>"
+						echo $id;
+						?>&lstvisiteur=<?php
+						echo $idvisiteur;
+						?>&mois=<?php
+						echo $mois;
+						?>"
 			onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer
 				ce frais</a></td>
-
 		<td><a
 			href="index.php?uc=valider&action=repporterfrais&idFrais=<?php
-			echo $id;
-			?>&lstvisiteur=<?php
-			echo $idvisiteur;
-			?>&mois=<?php
-			echo $mois?>"
+						echo $id;
+						?>&lstvisiteur=<?php
+						echo $idvisiteur;
+						?>&mois=<?php
+						echo $mois?>"
 			onclick="return confirm('Voulez-vous vraiment repporter ce frais?');">Reporter
 				ce frais</a></td>
-       <?php
-		} elseif ($_SESSION ['typeUtilisateur'] == 'Visiteur') {
-			$montanttotalfraisHF = $montanttotalfraisHF + $montant;
-			?>
-
-<td><a
+      <?php
+					} elseif ($_SESSION ['typeUtilisateur'] == 'Visiteur') {
+						$montanttotalfraisHF = $montanttotalfraisHF + $montant;
+						?>
+      <td><a
 			href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php
-			echo $id;
-			?>"
+						echo $id;
+						?>"
 			onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer
-				ce frais</a></td><?php
-		} else {
-			?>
-<td></td>
+				ce frais</a></td>
+      <?php
+					} else {
+						?>
+      <td></td>
 		<td></td>
-<?php
-		}
-		
-		?>
-            </tr>
-    <?php
-	}
-	
-	?>      
-       <tr>
+      <?php
+					}
+					
+					?>
+   </tr>
+   <?php
+				}
+				
+				?>      
+   <tr>
 		<td>Total</td>
 		<td></td>
 		<td><?php
-	echo $montanttotalfraisHF . "€";
-	?></td>
+				echo $montanttotalfraisHF . "€";
+				?></td>
 	</tr>
 </table>
-
-
 <?php
-} else {
-	?>
+			} else {
+				?>
 <p>il n'y a pas de frais hors forfait pour cette fiche</p>
 <?php
-}
-
-$montanttotal = $montanttotalfraisHF + $_SESSION ['montantTotalFraisForfait'];
-echo "Montant total : " . $montanttotal;
-
-if ($_SESSION ['typeUtilisateur'] == 'Comptable') {
-	?>
+			}
+			
+			$montanttotal = $montanttotalfraisHF + $_SESSION ['montantTotalFraisForfait'];
+			echo "Montant total : " . $montanttotal;
+			
+			if ($_SESSION ['typeUtilisateur'] == 'Comptable') {
+				?>
 <h3>
 	<a
 		href="index.php?uc=valider&action=validerfiche&idvisiteur=<?php
-	echo $idvisiteur?>&mois=<?php
-	echo $mois?>&montant=<?php
-	echo $montanttotal?>"
+				echo $idvisiteur?>&mois=<?php
+				echo $mois?>&montant=<?php
+				echo $montanttotal?>"
 		onclick="return confirm('Voulez-vous vraiment valider cette fiche?');">Valider
 		fiche</a>
 </h3>
-
 <?php
-	$_SESSION ['montantTotalFraisForfait'] = null;
-	unset ( $_SESSION ['montantTotalFraisForfait'] );
-}
-
-?>
-   <?php
+				$_SESSION ['montantTotalFraisForfait'] = null;
+				unset ( $_SESSION ['montantTotalFraisForfait'] );
+			}
 			
+			?>
+<?php
+
 			if ($_SESSION ['typeUtilisateur'] == 'Visiteur') {
 				?>
 <form action="index.php?uc=gererFrais&action=validerCreationFrais"
 	method="post">
 	<div class="corpsForm">
-
 		<fieldset>
 			<legend>Nouvel élément hors forfait </legend>
 			<p>
@@ -173,11 +167,10 @@ if ($_SESSION ['typeUtilisateur'] == 'Comptable') {
 				id="effacer" type="reset" value="Effacer" size="20" />
 		</p>
 	</div>
-
 </form>
 <?php
 			}
 			
 			?>
-
 </div>
+

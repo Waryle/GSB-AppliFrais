@@ -31,7 +31,7 @@ switch ($action) {
 				
 				// test de cryptage du mot de passe
 				
-				if (!password_verify ( $mdp, $utilisateur ['mdp'] )) {
+				if (! password_verify ( $mdp, $utilisateur ['mdp'] )) {
 					ajouterErreur ( " Mot de passe incorrect" );
 					include ("vues/v_erreurs.php");
 					include ("vues/v_connexion.php");
@@ -40,7 +40,7 @@ switch ($action) {
 					$id = $utilisateur ['id'];
 					$nom = $utilisateur ['nom'];
 					$prenom = $utilisateur ['prenom'];
-					$typeUtilisateur = $_POST['typeUtilisateur'] ;
+					$typeUtilisateur = $_POST ['typeUtilisateur'];
 					connecter ( $id, $nom, $prenom, $typeUtilisateur );
 					include ("vues/v_sommaire.php");
 				}
@@ -48,7 +48,6 @@ switch ($action) {
 			break;
 		}
 	
-		
 	default :
 		{
 			include ("vues/v_connexion.php");

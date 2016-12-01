@@ -1,7 +1,7 @@
 
-  <!-- Division pour le pied de page -->
-    
-  </body>
+<!-- Division pour le pied de page -->
+
+</body>
 </html>
 
 

@@ -1,59 +1,59 @@
-﻿ <div id="contenu">
-      <h2>Mes fiches de frais</h2>
-      <h3>Mois à sélectionner : </h3>
-     <?php 
-     if($_SESSION['typeUtilisateur']=='Visiteur')
-     	{?>
+﻿
+<div id="contenu">
+	<h2>Mes fiches de frais</h2>
+	<h3>Mois à sélectionner :</h3>
+     <?php
+					if ($_SESSION ['typeUtilisateur'] == 'Visiteur') {
+						?>
 <form action="index.php?uc=etatFrais&action=voirEtatFrais" method="post">
       <?php
-  }else
-      {?>
-      <form action="index.php?uc=valider&action=voirFraisVisiteur" method="post">
-      <input type="hidden" value=<?php echo $idvisiteur ?> name="idvisiteur"/>
-      <input type="hidden" value=<?php echo $idvisiteur ?> name="idvisiteur"/>
-      <input type="hidden" value=<?php echo $idvisiteur ?> name="idvisiteur"/>
+					} else {
+						?>
+      <form action="index.php?uc=valider&action=voirFraisVisiteur"
+			method="post">
+			<input type="hidden" value=<?php echo $idvisiteur?>
+				name="idvisiteur" /> <input type="hidden"
+				value=<?php echo $idvisiteur ?> name="idvisiteur" /> <input
+				type="hidden" value=<?php echo $idvisiteur ?> name="idvisiteur" />
    
-      <?php 
-
-  }
-           ?>
+      <?php
+					}
+					?>
       <div class="corpsForm">
-         
-      <p>
-	 
-        <label for="lstMois" accesskey="n">Mois : </label>
-        <select id="lstMois" name="lstMois">
+
+				<p>
+
+					<label for="lstMois" accesskey="n">Mois : </label> <select
+						id="lstMois" name="lstMois">
             <?php
-			foreach ($lesMois as $unMois)
-			{
-				if ($unMois['numAnnee'] > $anneePass-2) {
-			    $mois = $unMois['mois'];
-				$numAnnee =  $unMois['numAnnee'];
-				$numMois =  $unMois['numMois'];
-				if($mois == $moisASelectionner){
-				?>
+												foreach ( $lesMois as $unMois ) {
+													if ($unMois ['numAnnee'] > $anneePass - 2) {
+														$mois = $unMois ['mois'];
+														$numAnnee = $unMois ['numAnnee'];
+														$numMois = $unMois ['numMois'];
+														if ($mois == $moisASelectionner) {
+															?>
 				<option selected value="<?php echo $mois ?>"><?php echo  $numMois."/".$numAnnee ?> </option>
-				<?php 
-				}
-				else{ ?>
+				<?php
+														} else {
+															?>
 				<option value="<?php echo $mois ?>"><?php echo  $numMois."/".$numAnnee ?> </option>
-				<?php 
-				}
-				}
-			
-			}
-           
-		   ?>    
+				<?php
+														}
+													}
+												}
+												
+												?>    
             
         </select>
 
-      </p>
-      </div>
-      <div class="piedForm">
-      <p>
-        <input id="ok" type="submit" value="Valider" size="20" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
-      </p> 
-      </div>
-        
-      </form>
+				</p>
+			</div>
+			<div class="piedForm">
+				<p>
+					<input id="ok" type="submit" value="Valider" size="20" /> <input
+						id="annuler" type="reset" value="Effacer" size="20" />
+				</p>
+			</div>
+
+		</form>
