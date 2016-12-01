@@ -268,7 +268,7 @@ class PdoGsb
         $dernierMois     = $this->dernierMoisSaisi($idVisiteur);
         $laDerniereFiche = $this->getLesInfosFicheFrais($idVisiteur, $dernierMois);
         if ($laDerniereFiche['idEtat'] == 'CR') {
-            $this->majEtatFicheFrais($idVisiteur, $dernierMois, 'CL');
+            $this->majEtatFicheFrais($idVisiteur, $dernierMois, 'CL', 0);
             
         }
         $req = PdoGsb::$monPdo->prepare("insert into fichefrais(idvisiteur,mois,nbJustificatifs,montantValide,dateModif,idEtat) 
