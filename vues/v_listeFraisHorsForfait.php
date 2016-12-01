@@ -35,7 +35,7 @@ Etat : <?php
               <?php
     if ($_SESSION['typeUtilisateur'] == 'Comptable') {
 ?> 
-               <th class="action">Repporter</th>     <?php
+               <th class="action">Reporter</th>     <?php
     }
 ?>                  
              </tr>
@@ -66,9 +66,9 @@ Etat : <?php
         if ($_SESSION['typeUtilisateur'] == 'Comptable' and $chaine === false) {
             $montanttotalfraisHF = $montanttotalfraisHF + $montant;
 ?>
-<td><a href="index.php?uc=valider&action=supprimerFrais&idFrais=<?phpecho $id;?>&lstvisiteur=<?php echo $idvisiteur;?>&mois=<?php echo $mois;?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
+<td><a href="index.php?uc=valider&action=supprimerFrais&idFrais=<?php echo $id;?>&lstvisiteur=<?php echo $idvisiteur;?>&mois=<?php echo $mois;?>" onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
 
-<td><a href="index.php?uc=valider&action=repporterfrais&idFrais=<?php echo $id;?>&lstvisiteur=<?php echo $idvisiteur;?>&mois=<?php echo $mois?>"onclick="return confirm('Voulez-vous vraiment repporter ce frais?');">Repporter ce frais</a></td>
+<td><a href="index.php?uc=valider&action=repporterfrais&idFrais=<?php echo $id;?>&lstvisiteur=<?php echo $idvisiteur;?>&mois=<?php echo $mois?>"onclick="return confirm('Voulez-vous vraiment repporter ce frais?');">Reporter ce frais</a></td>
        <?php
         } elseif ($_SESSION['typeUtilisateur'] == 'Visiteur') {
             $montanttotalfraisHF = $montanttotalfraisHF + $montant;

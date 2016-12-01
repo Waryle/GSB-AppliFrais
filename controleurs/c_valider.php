@@ -39,10 +39,10 @@ case 'voirFraisVisiteur' :{
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
 		//include("vues/v_listeMois.php");
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idvisiteur,$mois);
-$lesFraisForfait= $pdo->getLesFraisForfait($idvisiteur,$mois);
-include("vues/v_listeFraisForfait.php");
-include("vues/v_listeFraisHorsForfait.php");
-	break;
+		$lesFraisForfait= $pdo->getLesFraisForfait($idvisiteur,$mois);
+		include("vues/v_listeFraisForfait.php");
+		include("vues/v_listeFraisHorsForfait.php");
+		break;
 }
 
 
@@ -83,13 +83,13 @@ header("Location:index.php?uc=valider&action=voirFraisVisiteur&lstMois=$mois&idv
 	case 'supprimerFrais':{
 		$mois = $_REQUEST['mois'];
 
-$idvisiteur = $_REQUEST['lstvisiteur'];
-	$visiteur = $pdo->getVisiteur($idvisiteur);
-	$visiteur_prenom = $visiteur['prenom'];
-	$visiteur_nom  = $visiteur['nom'];
+		$idvisiteur = $_REQUEST['lstvisiteur'];
+		$visiteur = $pdo->getVisiteur($idvisiteur);
+		$visiteur_prenom = $visiteur['prenom'];
+		$visiteur_nom  = $visiteur['nom'];
 		$idFrais = $_REQUEST['idFrais'];
-	   $pdo->SetLibelleFraisHorsForfait($idFrais);
-	   header("Location:index.php?uc=valider&action=voirFraisVisiteur&lstMois=$mois&idvisiteur=$idvisiteur");
+		$pdo->SetLibelleFraisHorsForfait($idFrais);
+		header("Location:index.php?uc=valider&action=voirFraisVisiteur&lstMois=$mois&idvisiteur=$idvisiteur");
 
 
 	  
