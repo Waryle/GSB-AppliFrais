@@ -82,7 +82,6 @@ header("Location:index.php?uc=valider&action=voirFraisVisiteur&lstMois=$mois&idv
 
 	case 'supprimerFrais':{
 		$mois = $_REQUEST['mois'];
-
 		$idvisiteur = $_REQUEST['lstvisiteur'];
 		$visiteur = $pdo->getVisiteur($idvisiteur);
 		$visiteur_prenom = $visiteur['prenom'];
@@ -90,9 +89,6 @@ header("Location:index.php?uc=valider&action=voirFraisVisiteur&lstMois=$mois&idv
 		$idFrais = $_REQUEST['idFrais'];
 		$pdo->SetLibelleFraisHorsForfait($idFrais);
 		header("Location:index.php?uc=valider&action=voirFraisVisiteur&lstMois=$mois&idvisiteur=$idvisiteur");
-
-
-	  
 		break;
 	}
 

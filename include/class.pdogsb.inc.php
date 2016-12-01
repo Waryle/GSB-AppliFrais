@@ -433,6 +433,7 @@ class PdoGsb
      */
     public function getVisiteur($idvisiteur)
     {
+    	
         $req = PdoGsb::$monPdo->prepare("select  visiteur.nom as nom, visiteur.prenom as prenom from visiteur
         where visiteur.id= :idVisiteur");
         $req->execute(array(
@@ -451,7 +452,6 @@ class PdoGsb
         ));
         $libelle = $req->fetch();
         $titre   = 'REFUSE ' . $libelle[0];
-        
         $req2 = PdoGsb::$monPdo->prepare("update lignefraishorsforfait set libelle = :titre where lignefraishorsforfait.id = :idFrais");
         $req2->execute(array(
             'titre' => $titre,
