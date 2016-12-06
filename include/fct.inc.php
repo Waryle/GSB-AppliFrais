@@ -235,10 +235,11 @@ function estTropGrand($date) {
  * @return String[]
  */
 function decouperStringSeparateurPointVirgule($string) {
-	@list ( $idVisiteur, $mois, $montantValid ) = explode ( ';', $string );
-	$info ['idVisiteur'] = $idVisiteur;
-	$info ['mois'] = $mois;
-	$info ['montantValide'] = $montantValide;
+	@list ( $idVisiteur, $mois, $montantValide ) = explode ( ';', $string );
+	$info['idVisiteur'] = $idVisiteur;
+	$info['mois'] = $mois;
+	$info['montantValide'] = $montantValide;
+	var_dump($info['montantValide']);
 	return $info;
 }
 
