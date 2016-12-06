@@ -30,7 +30,7 @@
                     </td>
 
 				<td><input type="checkbox" id="choixValideFiche" name="choix[]"
-					value="<?php echo $uneFiche['idVisiteur'].";".$uneFiche['mois'].";".$uneFiche['montantValide']."." ?>" />
+					value="<?php echo $uneFiche['idVisiteur'].";".$uneFiche['mois'].";".$uneFiche['montantValide'].";" ?>" />
 
 				</td>
 			</tr>
@@ -40,6 +40,9 @@
     </table>
 		<input type="submit" value="Valider" />
 	</form>
+
+<a href= "index.php?uc=paiement&action=pdf">Generer PDF</a>
+
     <?php }else{ ?>
     <p>Toutes les mises en paiements ont été effectuées</p>
     <?php }?>

@@ -9,7 +9,11 @@ $action = $_REQUEST ['action'];
 switch ($action) {
 	case 'saisirFrais' :
 		{
-			if ($pdo->estPremierFraisMois ( $idVisiteur, $mois )) {
+			$jour=date("d"); 
+			//probleme au 1er janvier à corriger
+$etatfiche = $pdo->getEtat($idVisiteur, $mois-1);
+
+		if ($pdo->estPremierFraisMois ( $idVisiteur, $mois ) and  $etatfiche['idEtat']=='CL' ) {
 				$pdo->creeNouvellesLignesFrais ( $idVisiteur, $mois );
 			}
 			break;

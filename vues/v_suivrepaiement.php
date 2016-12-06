@@ -3,6 +3,8 @@
 <?php
 if (! empty ( $lesfiches )) {
 	?>
+	 <form method="post"
+		action="index.php?uc=paiement&action=rembourser">
 <table class="listeLegere">
 
 		<tr>
@@ -14,7 +16,7 @@ if (! empty ( $lesfiches )) {
 			<th>A été remboursé</th>
 		
 		
-		<tr>
+		</tr>
 <?php
 	foreach ( $lesfiches as $uneFiche ) {
 		?>
@@ -26,17 +28,17 @@ if (! empty ( $lesfiches )) {
 			<td><?php echo $uneFiche['prenom']?></td>
 			<td><?php echo $uneFiche['mois']?></td>
 			<td><?php echo $uneFiche['montantValide']?></td>
-			<td><a
-				href="index.php?uc=paiement&action=rembourser&mois=<?php echo $uneFiche['mois'] ?>&idvisiteur=<?php echo $uneFiche['idVisiteur']?>&montant=<?php echo $uneFiche['montantValide']?>"
-				onclick="return confirm('Voulez-vous vraiment confirmer le remboursement?');">A
-					été remboursé</a></td>
+			<td><input type="checkbox" id="choixValideFiche" name="choix[]"
+					value="<?php echo $uneFiche['idVisiteur'].";".$uneFiche['mois'].";".$uneFiche['montantValide'].";" ?>" /></td>
 		</tr>
 
 <?php
 	}
 	
 	?>		
-</table><?php
+</table>
+<input type="submit" value="Valider" />
+</form><?php
 } else {
 	?>
 	 <p>Toutes les remboursements ont été effectués</p>
