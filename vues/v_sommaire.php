@@ -33,7 +33,7 @@
 			title="Mettre en paiement">Mettre en paiement</a></li>
 		<li class="smenu"><a
 			href="index.php?uc=paiement&action=suivrePaiement"
-			title="Suivre paiment">Suivre paiment</a></li>
+			title="Suivre paiment">Suivre paiement</a></li>
            
            
           <?php   }?>

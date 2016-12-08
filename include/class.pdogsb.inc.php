@@ -396,9 +396,10 @@
 					'etat' => $etat,
 					'montant' => $montant,
 					'idVisiteur' => $idVisiteur,
-					'mois' => $mois 
+					'mois' => $mois
 			) );
 		}
+		
 		public function getLesMoiscloture($idVisiteur) {
 			$req = PdoGsb::$monPdo->prepare ( "select  fichefrais.mois as mois from  fichefrais where fichefrais.idvisiteur = :idVisiteur and fichefrais.idEtat='CL' 
         order by fichefrais.mois desc " );

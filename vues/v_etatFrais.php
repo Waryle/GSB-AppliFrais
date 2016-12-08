@@ -1,5 +1,4 @@
-﻿
-<h3>Fiche de frais du mois <?php echo $numMois."-".$numAnnee?> : 
+﻿<h3>Fiche de frais du mois <?php echo $numMois."-".$numAnnee?> : 
     </h3>
 <div class="encadre">
 	<p>
@@ -51,7 +50,7 @@
     </tr>
 	</table>
     <?php }else{?>
-    <p>Il n'y a aucun frais forfétarisés pour cette fiche</p>
+    <p>Il n'y a aucun frais forfaitisé pour cette fiche</p>
   <?php   }?>
   	<table class="listeLegere">
 		<caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -
