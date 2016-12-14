@@ -1,4 +1,18 @@
 ﻿<?php
+
+/**
+* Contrôleur des fiches de frais en cours
+*
+* Contrôleur permettant l'affichage des fiches de frais déjà saisies. Permet une sélection du mois désiré, et l'affichage de
+* la fiche correspondante.
+*
+*
+* @package   GSB-AppliFrais/controleurs
+* @author    Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
+* @version 1 (Décembre 2016)
+* @copyright 2016 Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
+*/
+
 include ("vues/v_sommaire.php");
 $action = $_REQUEST ['action'];
 $idVisiteur = $_SESSION ['idVisiteur'];
@@ -11,7 +25,6 @@ switch ($action) {
 			// on demande toutes les clés, et on prend la première,
 			// les mois étant triés décroissants
 			$lesCles = array_keys ( $lesMois );
-			// MAXIME : ERREUR Provoquait une erreur par défaut, penser à prévoir le comportement lors d'un array $lesCles vide
 			if (! empty ( $lesCles )) {
 				$moisASelectionner = $lesCles [0];
 				include ("vues/v_listeMois.php");

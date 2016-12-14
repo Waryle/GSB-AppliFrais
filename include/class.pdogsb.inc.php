@@ -399,6 +399,15 @@
 					'mois' => $mois 
 			) );
 		}
+		/**
+		 * Retour toute les mois des fiches de frais à l'état cloturée pour un visiteur
+		 *
+		 * Retour toute les mois fiches de frais à l'état cloturée (CL) pour un visiteur donnée en paramètre
+		 *
+		 * @param $idVisiteur
+		 *  @return le mois sous la forme aaaamm
+		 *        	
+		 */
 		public function getLesMoiscloture($idVisiteur) {
 			$req = PdoGsb::$monPdo->prepare ( "select  fichefrais.mois as mois from  fichefrais where fichefrais.idvisiteur = :idVisiteur and fichefrais.idEtat='CL' 
         order by fichefrais.mois desc " );
@@ -424,8 +433,7 @@
 		/**
 		 * Retourne les informations d'un visiteur
 		 *
-		 * @param
-		 *        	$idvisiteur
+		 * @param $idvisiteur
 		 * @return l'id, nom et le prenom sous la forme d'un tableau associatif
 		 */
 		public function getVisiteur($idvisiteur) {
@@ -437,6 +445,15 @@
 			$ligne = $req->fetch ();
 			return $ligne;
 		}
+		
+		/**
+		* Change le libelle d'un frais hors forfait
+		* 
+		* Change le libelle d'une frais hors forfait donnée en paramètre en prenant le libelle existant et lui ajoutant "Refuser :"
+		 *
+		 * @param $idfrais
+		 * 
+		 */
 		public function SetLibelleFraisHorsForfait($idfrais) {
 			$req = PdoGsb::$monPdo->prepare ( "select  libelle from lignefraishorsforfait
         where lignefraishorsforfait.id = :idFrais" );
@@ -451,6 +468,17 @@
 					'idFrais' => $idfrais 
 			) );
 		}
+		
+		/**
+		 * Permet de repporter un frai au mois ou une fiche de saisi est en création
+		 * 
+		 * Permet de repporter un frai au mois ou une fiche de saisi est en création pour le mois en cours, s'il n'en existe pas cela génère la création d'une nouvelle fiche pour le mois en cours
+		 *
+		 * @param $idfrais
+		 * @param $mois
+		 * @param $visiteur
+		 *
+		 */
 		public function repportFrais($idfrais, $mois, $visiteur) {
 			$newmois = $this->dernierMoisSaisi ( $visiteur );
 			$etat = $this->getEtat ( $visiteur, $newmois );
@@ -465,6 +493,16 @@
 				$this->majLigneFraisHorsForfait ( $idfrais, $newmois );
 			}
 		}
+		
+		/**
+		 *Transfère un frais hors forfait au mois donnée en paramètre
+		 *
+		 *Utile lors d'un report de frais, qui transfère le frais au mois précédent dans le cas d'un repport de frais 
+		 *
+		 * @param $newmois
+		 * @param $idfrais
+		 *
+		 */
 		public function majLigneFraisHorsForfait($idfrais, $newmois) {
 			$req = PdoGsb::$monPdo->prepare ( "update lignefraishorsforfait set lignefraishorsforfait.mois = :newMois
         where lignefraishorsforfait.id= :idFrais " );
@@ -473,6 +511,18 @@
 					'idFrais' => $idfrais 
 			) );
 		}
+		
+		
+		/**
+		 *Retour un l'état d'une fiche de frais saisie
+		 *
+		 *Retour un l'état d'une fiche de frais saisie
+		 *
+		 * @param $visiteur
+		 * @param $mois
+		 * 
+		 * @return l'état d'une fiche de frais
+		 */
 		public function getEtat($visiteur, $mois) {
 			$req = PdoGsb::$monPdo->prepare ( "select fichefrais.idEtat
         from fichefrais
@@ -484,37 +534,14 @@
 			$ligne = $req->fetch ();
 			return $ligne;
 		}
-		
-		/**
-		 * public function GetlesFicheValider(){
-		 * $req = "select DISTINCT ficheFrais.idVisiteur as idVisiteur, visiteur.nom as nom, visiteur.prenom as prenom, fichefrais.montantValide as montantValide, ficheFrais.mois as mois
-		 * from fichefrais
-		 * inner join visiteur
-		 * on ficheFrais.idVisiteur = visiteur.id
-		 * where idEtat ='VA'";
-		 * $res = PdoGsb::$monPdo->query($req);
-		 * $lesLignes = $res->fetchAll();
-		 * return $lesLignes;
-		 * }
-		 */
-		
-		/**
-		 * public function GetlesFicheMiseEnpaiement(){
-		 * $req = "select DISTINCT ficheFrais.idVisiteur as idVisiteur, visiteur.nom as nom, visiteur.prenom as prenom, fichefrais.montantValide as montantValide, ficheFrais.mois as mois
-		 * from fichefrais
-		 * inner join visiteur
-		 * on ficheFrais.idVisiteur = visiteur.id
-		 * where idEtat ='MP'";
-		 * $res = PdoGsb::$monPdo->query($req);
-		 * $lesLignes = $res->fetchAll();
-		 * return $lesLignes;
-		 * } *
-		 */
+	
 		
 		/**
 		 * Retourne les visiteurs ayant des fiche de frais cloturée
 		 *
 		 * Retourne tout les visiteurs ayant des fiche de frais cloturée
+		 * 
+		 *@return l'id du visiteur sous la forme d'un tableau associatif
 		 */
 		public function GetlesVisiteurFicheCloture() {
 			$req = "select DISTINCT ficheFrais.idVisiteur as idVisiteur,  visiteur.nom as nom, visiteur.prenom as prenom
@@ -526,6 +553,14 @@
 			$lesLignes = $res->fetchAll ();
 			return $lesLignes;
 		}
+		
+		/**
+		* Retourne les informations des fiche de frais ayant un état égale a l'état passé en paramètre
+		*
+		* Retourne tout les visiteurs ayant des fiche de frais cloturée
+		*@param $newmois
+		*@return l'id, nom , prénom, montantValid, mois des fiche de frais sous la forme d'un tableau associatif
+		*/
 		public function GetlesFicheEtat($etat) {
 			$req = PdoGsb::$monPdo->prepare ( "select DISTINCT ficheFrais.idVisiteur as idVisiteur,  visiteur.nom as nom, visiteur.prenom as prenom, fichefrais.montantValide as montantValide, ficheFrais.mois as mois
              from  fichefrais 
@@ -538,8 +573,12 @@
 			$lesLignes = $req->fetchAll ();
 			return $lesLignes;
 		}
-				/*
-		*fonction pour récupèrer le nom du comptable
+		/**
+		* Retourne le prénom du comptable passé en paramètre
+		*
+		* Retourne tout les visiteurs ayant des fiche de frais cloturée
+		* @param $newmois
+		*  @return prénom d'un comptable
 		*/
 		public function getPrenomComptable($id) {
 			$req = PdoGsb::$monPdo->prepare ( "select prenom from comptable 
