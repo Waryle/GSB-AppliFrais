@@ -1,18 +1,4 @@
 <?php
-
-/**
- * Contrôleur de mise en paiement des fiches de frais
- *
- * Contrôleur permettant l'affichage des fiches de frais déjà saisies.
- *
- *
- * @package   GSB-AppliFrais/controleurs
- * @author    Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
- * @version 1 (Décembre 2016)
- * @copyright 2016 Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
- */
-
-
 include ("vues/v_sommaire.php");
 $action = $_REQUEST ['action'];
 switch ($action) {
@@ -50,44 +36,58 @@ switch ($action) {
 		}
 		}
 		case 'pdf' :{
+	ob_end_clean();
+			
+			$comptable=$pdo->getPrenomComptable($_SESSION['idVisiteur']);
+			
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetFont('Helvetica','',11);
 $pdf->SetTextColor(0);
-$pdf->Text(8,38,'Le '.date("m.d.y"));
-$nom = 'misePaiement-'.date("m.d.y").'.pdf';
+$pdf->Text(8,60,utf8_decode('Le '.date("d.m.y"). "  généré par ".$comptable['prenom']));
+$nom = 'misePaiement-'.date("d.m.y").'.pdf';
   $pdf->SetDrawColor(183); // Couleur du fond
     $pdf->SetFillColor(221); // Couleur des filets
     $pdf->SetTextColor(0); // Couleur du texte
-    $pdf->SetY(58);
+    $pdf->SetY(70);
     $pdf->SetX(8);
-    $pdf->Cell(15,8,'ID',1,0,'L',1);
-    $pdf->SetX(166); // 8 + 96
-    $pdf->Cell(158,8,'Nom',1,0,'L',1);
-    $pdf->SetX(166); // 8 + 96
-    $pdf->Cell(10,8,'Prénom',1,0,'C',1);
-    $pdf->SetX(176); // 104 + 10
-    $pdf->Cell(24,8,'Montant',1,0,'C',1);
-    $pdf->Ln(); // Retour à la ligne
-$lesfiches = $pdo->GetlesFicheEtat ( "MP" );
-$position_detail=66;
+    $pdf->Cell(20,8,'ID',1,0,'L',1);
+    $pdf->SetX(28); // 8 + 96
+    $pdf->Cell(60,8,'Nom',1,0,'L',1);
+    $pdf->SetX(88); // 8 + 96
+    $pdf->Cell(80,8,utf8_decode('Prénom'),1,0,'L',1);
+    $pdf->SetX(168); // 104 + 10
+      $pdf->Cell(20,8,'Montant',1,0,'L',1);
+	    $pdf->Ln(); // Retour à la ligne
+$lesfiches = $pdo->GetlesFicheEtat ( "VA" );
+$position_detail=78;
 foreach ($lesfiches as $uneFiche )  {
 
   $pdf->SetY($position_detail);
      $pdf->SetX(8);
-      $pdf->MultiCell(15,8,utf8_decode($uneFiche['idVisiteur']),1,'L');
+      $pdf->MultiCell(20,8,utf8_decode($uneFiche['idVisiteur']),1,'L');
+	  
+	  
     $pdf->SetY($position_detail);
-    $pdf->SetX(166);
-    $pdf->MultiCell(158,8,utf8_decode($uneFiche['nom']),1,'L');
+    $pdf->SetX(28);
+    $pdf->MultiCell(60,8,utf8_decode($uneFiche['nom']),1,'L');
+	
+	
     $pdf->SetY($position_detail);
-    $pdf->SetX(166);
-    $pdf->MultiCell(10,8,$uneFiche['prenom'],1,'C');
+    $pdf->SetX(88);
+	$pdf->MultiCell(80,8,utf8_decode($uneFiche['prenom']),1,'L');
+	
     $pdf->SetY($position_detail);
-    $pdf->SetX(176);
-    $pdf->MultiCell(24,8,$uneFiche['montantValide'],1,'R');
+    $pdf->SetX(168);
+    $pdf->MultiCell(20,8,$uneFiche['montantValide'],1,'L');
+	
+	$pdf->SetY($position_detail);
+	$pdf->SetX(188);
     $position_detail += 8;
 }
+
 $pdf->Output($nom,'I');
+		
 		}
 
 }

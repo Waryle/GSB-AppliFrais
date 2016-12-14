@@ -1,20 +1,8 @@
 <?php
-
-/**
- * Contrôleur de gestion de fiches de frais
- *
- * Contrôleur permettant d'afficher la fiche de frais en cours et de modifier son contenu.
- *
- *
- * @package   GSB-AppliFrais/controleurs
- * @author    Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
- * @version 1 (Décembre 2016)
- * @copyright 2016 Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
- */
-
 include ("vues/v_sommaire.php");
 $idVisiteur = $_SESSION ['idVisiteur'];
 $mois = getMois ( date ( "d/m/Y" ) );
+
 $numAnnee = substr ( $mois, 0, 4 );
 $numMois = substr ( $mois, 4, 2 );
 $action = $_REQUEST ['action'];
@@ -24,6 +12,7 @@ switch ($action) {
 			$jour=date("d"); 
 			//probleme au 1er janvier à corriger
 $etatfiche = $pdo->getEtat($idVisiteur, $mois-1);
+
 		if ($pdo->estPremierFraisMois ( $idVisiteur, $mois ) and  $etatfiche['idEtat']=='CL' ) {
 				$pdo->creeNouvellesLignesFrais ( $idVisiteur, $mois );
 			}
@@ -59,33 +48,10 @@ $etatfiche = $pdo->getEtat($idVisiteur, $mois-1);
 			$pdo->supprimerFraisHorsForfait ( $idFrais );
 			break;
 		}
-                
-                case 'cloturerFicheFrais': {
-                                $idVisiteur = $_SESSION['idVisiteur'];
-                                $mois       = $_POST['mois'];
-                                $etat       = "CL";
-                                $montant    = 0;
-                                $pdo->majEtatFicheFrais( $idVisiteur, $mois, $etat, $montant );
-                               	header ( "Location:index.php?uc=gererFrais&action=saisirFrais" );
-                }
 }
+$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait ( $idVisiteur, $mois );
+$lesFraisForfait = $pdo->getLesFraisForfait ( $idVisiteur, $mois );
+include ("vues/v_listeFraisForfait.php");
+include ("vues/v_listeFraisHorsForfait.php");
 
-$ficheFrais = $pdo->getEtat( $idVisiteur, $mois - 1 );
-if ( $ficheFrais['idEtat'] == "CL" ) {
-                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait( $idVisiteur, $mois );
-                $lesFraisForfait     = $pdo->getLesFraisForfait( $idVisiteur, $mois );
-} else {
-                $mois--;
-                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait( $idVisiteur, $mois - 1 );
-                $lesFraisForfait     = $pdo->getLesFraisForfait( $idVisiteur, $mois - 1 );
-                $numMois--;
-                if ( $numMois == 0 ) {
-                                $numMois = 12;
-                                $numAnnee--;
-                }
-}
-
-include( "vues/v_listeFraisForfait.php" );
-include( "vues/v_listeFraisHorsForfait.php" );
-include( "vues/v_boutonCloture.php" );
 ?>

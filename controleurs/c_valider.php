@@ -1,16 +1,4 @@
 <?php
-/**
- * Contrôleur de mise validation des fiche de frais
- *
- * Contrôleur permettant l'affichage des fiches de frais déjà saisies, de les valider ou reporter, .
- *
- *
- * @package   GSB-AppliFrais/controleurs
- * @author    Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
- * @version 1 (Décembre 2016)
- * @copyright 2016 Bazebimio Jaïrus, Bouvry Sophie, Ducrocq Maxime
- */
-
 
 include ("vues/v_sommaire.php");
 $action = $_REQUEST ['action'];
