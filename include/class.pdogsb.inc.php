@@ -396,10 +396,9 @@
 					'etat' => $etat,
 					'montant' => $montant,
 					'idVisiteur' => $idVisiteur,
-					'mois' => $mois
+					'mois' => $mois 
 			) );
 		}
-		
 		public function getLesMoiscloture($idVisiteur) {
 			$req = PdoGsb::$monPdo->prepare ( "select  fichefrais.mois as mois from  fichefrais where fichefrais.idvisiteur = :idVisiteur and fichefrais.idEtat='CL' 
         order by fichefrais.mois desc " );
@@ -539,6 +538,19 @@
 			$lesLignes = $req->fetchAll ();
 			return $lesLignes;
 		}
+				/*
+		*fonction pour récupèrer le nom du comptable
+		*/
+		public function getPrenomComptable($id) {
+			$req = PdoGsb::$monPdo->prepare ( "select prenom from comptable 
+        where comptable.id= :id" );
+			$req->execute ( array (
+					'id' => $id
+			) );
+			$ligne = $req->fetch ();
+			return $ligne;
+		}
+		
 	}
 	
 	?>
